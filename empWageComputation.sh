@@ -9,7 +9,7 @@ MAX_WORKING_DAYS=20
 MAX_WORKING_HOURS=100;
 
 #Variables
-declare -a totalWage
+declare -A totalWage
 monthlyWage=0;
 totalWorkingDays=0;
 totalWorkingHours=0;
@@ -45,9 +45,9 @@ do
 	#Adding up the working hours
 	totalWorkingHours=$(($totalWorkingHours + $workHours));
 
-	#Storing daily wages in the array
-	totalWage+=( $dailyWage );
+	#Storing day and daily wage in the dictionary
+	totalWage[$totalWorkingDays]=$dailyWage;
 done
 
-echo "Employee daily wage:" ${totalWage[@]};
 echo "Employee monthly wage:" $monthlyWage;
+echo "Employee total wage dictionary:" ${totalWage[@]};
