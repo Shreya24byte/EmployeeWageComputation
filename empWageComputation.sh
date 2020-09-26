@@ -13,29 +13,34 @@ monthlyWage=0;
 totalWorkingDays=0;
 totalWorkingHours=0;
 
+function getWorkHours() {
+	attendance=$((RANDOM%3));
+        case $attendance in
+                $FULL_TIME)
+                        workHours=8;
+                        dailyWage=$(($EMPLOYEE_RATE_PER_HOUR * $workHours));
+                        ;;
+                $PART_TIME)
+                        workHours=4;
+                        dailyWage=$(($EMPLOYEE_RATE_PER_HOUR * $workHours));
+                        ;;
+                *)
+                        workHours=0;
+                        dailyWage=0;
+                        ;;
+        esac
+
+}
+
 while [[ $totalWorkingHours -lt $MAX_WORKING_HOURS && $totalWorkingDays -lt $MAX_WORKING_DAYS ]];
 do
 	((totalWorkingDays++));
-	attendance=$((RANDOM%3));
-	case $attendance in
-		$FULL_TIME)
-			workHours=8;
-			dailyWage=$(($EMPLOYEE_RATE_PER_HOUR * $workHours));
-			;;
-		$PART_TIME)
-			workHours=4;
-			dailyWage=$(($EMPLOYEE_RATE_PER_HOUR * $workHours));
-			;;
-		*)
-			workHours=0;
-			dailyWage=0;
-			;;
-	esac
+	getWorkHours;
 
-	echo "Employee daily wage:" $dailyWage;
 	#Adding up daily wages
 	monthlyWage=$(($monthlyWage + $dailyWage));
-	#Adding up total working hours
+
+	#Adding up the working hours
 	totalWorkingHours=$(($totalWorkingHours + $workHours));
 done
 
